@@ -13,14 +13,27 @@
 """
 
 
-
-def is_expression_correct(expression):
+def is_expression_correct(expression: str) -> bool:
     separate = expression.split(" ")
     valid_expression = ["+", "-", "*", "/", "%"]
-    for i in range(1, len(separate), 2):
-        if separate[i] not in valid_expression:
+
+    if len(separate) % 2 == 0 or len(separate) < 3:
+        return False
+
+    check = True
+
+    for i, j in enumerate(separate):
+        if i % 2 == 0:
+            try:
+                float(j)
+            except ValueError:
+                check = False
+        else:
+            check = j in valid_expression
+
+        if not check:
             return False
-    
-    return True
-        
-        
+    return check
+
+
+print(is_expression_correct("1+ + 2"))
