@@ -20,20 +20,16 @@ def is_expression_correct(expression: str) -> bool:
     if len(separate) % 2 == 0 or len(separate) < 3:
         return False
 
-    check = True
-
     for i, j in enumerate(separate):
         if i % 2 == 0:
             try:
                 float(j)
             except ValueError:
-                check = False
+                return False
         else:
-            check = j in valid_expression
-
-        if not check:
-            return False
-    return check
+            if j not in valid_expression:
+                return False
+    return True
 
 
-print(is_expression_correct("1+ + 2"))
+print(is_expression_correct("1 + 2"))
